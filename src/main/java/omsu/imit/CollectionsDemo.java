@@ -38,15 +38,15 @@ public class CollectionsDemo {
      */
 
     public static List<Human> getNamesakes(List<Human> persons, Human person) {
-        if(persons == null){
+        if (persons == null) {
             throw new IllegalArgumentException("list persons can't be null");
         }
 
-        if (persons.isEmpty()){
+        if (persons.isEmpty()) {
             throw new IllegalArgumentException("list persons can't be empty");
         }
 
-        if(person == null){
+        if (person == null) {
             throw new IllegalArgumentException("person can't be null");
         }
 
@@ -59,22 +59,22 @@ public class CollectionsDemo {
         return namesakes;
     }
 
-    public static List<Human> copyWithout(List<Human> persons, Human person){
-        if(persons == null){
+    public static List<Human> copyWithout(List<Human> persons, Human person) {
+        if (persons == null) {
             throw new IllegalArgumentException("list persons can't be null");
         }
 
-        if (persons.isEmpty()){
+        if (persons.isEmpty()) {
             throw new IllegalArgumentException("list persons can't be empty");
         }
 
-        if(person == null){
+        if (person == null) {
             throw new IllegalArgumentException("person can't be null");
         }
 
         List<Human> newPersons = new ArrayList<>();
-        for (Human p: persons) {
-            if (!person.equals(p)){
+        for (Human p : persons) {
+            if (!person.equals(p)) {
                 newPersons.add(p);
             }
         }
@@ -83,11 +83,51 @@ public class CollectionsDemo {
     }
 
 
-    public static List<Set<Integer>> getNotCrossedWith(List<Set<Integer>> intNumSets,
-                                                           Set<Integer> intNumSet){
-        List<Set<Integer>> notCrossedWith = new ArrayList<>();
+    //    самый главный тест не проходит
+    public static List<Set<Integer>> deleteIntersections(List<Set<Integer>> list,
+                                                         Set<Integer> set) {
+        if (list.isEmpty()) {
+            throw new IllegalArgumentException("list can't be empty");
+        }
+        if (list == null) {
+            throw new NullPointerException("list can't be null");
+        }
+        if (set.isEmpty()) {
+            throw new IllegalArgumentException("set can't be empty");
+        }
+        if (set == null) {
+            throw new NullPointerException("set can't be null");
+        }
+        List<Set<Integer>> newList = new ArrayList<>();
+        for (Set<Integer> elem : list) {
+//            кажется надо использовать другой метод:
+            if (!elem.contains(set)) {
+                newList.add(elem);
+            }
+        }
+        return newList;
+    }
 
-        return notCrossedWith;
+    public static Set<Human> getMaxAgeSet(List<Human> list){
+        if(list == null){
+            throw new NullPointerException("list can't be null");
+        }
+        if(list.isEmpty()){
+            throw new IllegalArgumentException("list can't be empty");
+        }
+        Set<Human> set = new HashSet<>();
+        int max = list.get(0).getAge();
+        for (Human elem: list) {
+            if (elem.getAge() > max){
+                max = elem.getAge();
+            }
+        }
+        for (Human elem: list) {
+            if (elem.getAge() == max){
+                set.add(elem);
+            }
+        }
+        return set;
     }
 
 }

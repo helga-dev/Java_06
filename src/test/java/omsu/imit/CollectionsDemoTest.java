@@ -3,6 +3,7 @@ package omsu.imit;
 import static omsu.imit.CollectionsDemo.countLines;
 import static omsu.imit.CollectionsDemo.getNamesakes;
 import static omsu.imit.CollectionsDemo.copyWithout;
+import static omsu.imit.CollectionsDemo.deleteIntersections;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -173,8 +174,54 @@ public class CollectionsDemoTest
         Collections.addAll(persons, p1, p2, p3, p4);
         Collections.addAll(newPersons, p1, p3, p4);
         Assert.assertEquals(newPersons, copyWithout(persons, p0));
+    }
 
+    @Test(expected = NullPointerException.class)
+    public void testDeleteIntersectionsNullList(){
+        Set<Integer> set = new HashSet<>();
+        set.add(1);
+        deleteIntersections(null, set);
+    }
 
+    @Test(expected = NullPointerException.class)
+    public void testDeleteIntersectionsNullSet(){
+        List<Set<Integer>> list = new ArrayList<>();
+        Set<Integer> mySet = new HashSet<>();
+        mySet.add(1);
+        list.add(mySet);
+        deleteIntersections(list, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testDeleteIntersectionsEmptyList(){
+        List<Set<Integer>> list = new ArrayList<>();
+        Set<Integer> set = new HashSet<>();
+        set.add(1);
+        deleteIntersections(list, set);
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testDeleteIntersectionsEmptySet(){
+        List<Set<Integer>> list = new ArrayList<>();
+        Set<Integer> mySet = new HashSet<>();
+        mySet.add(1);
+        list.add(mySet);
+        Set<Integer> set = new HashSet<>();
+        deleteIntersections(list, set);
+        }
+
+    @Test
+    public void testDeleteIntersections(){
+        List<Set<Integer>> list = new ArrayList<>();
+        List<Set<Integer>> newList = new ArrayList<>();
+        Set<Integer> mySet1 = new HashSet<>();
+        Set<Integer> mySet2 = new HashSet<>();
+        Collections.addAll(mySet1, 1, 2, 3, 4, 5);
+        Collections.addAll(mySet2, 6, 7, 8, 9, 10);
+        Collections.addAll(list, mySet1, mySet2);
+        Set<Integer> set = new HashSet<>();
+        Collections.addAll(set, 1, 3);
+        newList.add(mySet2);
+        Assert.assertEquals(newList, deleteIntersections(list, set));
     }
 
 
