@@ -82,52 +82,80 @@ public class CollectionsDemo {
         return newPersons;
     }
 
-
-    //    самый главный тест не проходит
+    //5
     public static List<Set<Integer>> deleteIntersections(List<Set<Integer>> list,
                                                          Set<Integer> set) {
+        if (list == null) {
+            throw new IllegalArgumentException("list can't be null");
+        }
         if (list.isEmpty()) {
             throw new IllegalArgumentException("list can't be empty");
         }
-        if (list == null) {
-            throw new NullPointerException("list can't be null");
+        if (set == null) {
+            throw new IllegalArgumentException("set can't be null");
         }
         if (set.isEmpty()) {
             throw new IllegalArgumentException("set can't be empty");
         }
-        if (set == null) {
-            throw new NullPointerException("set can't be null");
-        }
+
         List<Set<Integer>> newList = new ArrayList<>();
         for (Set<Integer> elem : list) {
-//            кажется надо использовать другой метод:
-            if (!elem.contains(set)) {
+            if (Collections.disjoint(elem, set)) {
                 newList.add(elem);
             }
         }
         return newList;
     }
 
-    public static Set<Human> getMaxAgeSet(List<Human> list){
-        if(list == null){
-            throw new NullPointerException("list can't be null");
+    public static Set<Human> getMaxAgeSet(List<Human> list) {
+        if (list == null) {
+            throw new IllegalArgumentException("list can't be null");
         }
-        if(list.isEmpty()){
+        if (list.isEmpty()) {
             throw new IllegalArgumentException("list can't be empty");
         }
         Set<Human> set = new HashSet<>();
         int max = list.get(0).getAge();
-        for (Human elem: list) {
-            if (elem.getAge() > max){
+        for (Human elem : list) {
+            if (elem != null && elem.getAge() > max) {
                 max = elem.getAge();
             }
         }
-        for (Human elem: list) {
-            if (elem.getAge() == max){
+        for (Human elem : list) {
+            if (elem != null && elem.getAge() == max) {
                 set.add(elem);
             }
         }
         return set;
+    }
+//    компаратор?
+//    public static void iteratorSurname(Set<Human> set){
+//             List<Human> list = new ArrayList<>();
+//             list.iterator();
+//
+//    }
+
+    public static Set<Human> getHumanByKey(Map<Integer, Human> map, Set<Integer> set) {
+        if (map == null) {
+            throw new IllegalArgumentException("map cannot be null");
+        }
+        if (set == null) {
+            throw new IllegalArgumentException("set cannot be null");
+        }
+        if (map.isEmpty()) {
+            throw new IllegalArgumentException("map cannot be empty");
+        }
+        if (set.isEmpty()) {
+            throw new IllegalArgumentException("set cannot be empty");
+        }
+
+        Set<Human> humanSet = new HashSet<>();
+        for (Integer elem : set) {
+            if (map.containsKey(elem)) {
+                humanSet.add(map.get(elem));
+            }
+        }
+        return humanSet;
     }
 
 }

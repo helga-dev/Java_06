@@ -6,10 +6,12 @@ public class Student extends Human {
     private String faculty;
 
     public Student() {
+        super();
         faculty = "ИМИТ";
     }
 
-    public Student(String faculty) {
+    public Student(String surname, String name, String middleName, int age, String faculty) {
+        super(surname, name, middleName, age);
         setFaculty(faculty);
     }
 
