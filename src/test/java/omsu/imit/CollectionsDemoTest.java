@@ -336,4 +336,121 @@ public class CollectionsDemoTest {
         assertEquals(expected, getHumanByKey(humanMap, set));
     }
 
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetAdultHumanKeysNullMap(){
+        getAdultHumanKeys(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetAdultHumanKeysEmptyMap(){
+        Map<Integer, Human> map = new HashMap<>();
+        getAdultHumanKeys(map);
+    }
+
+    @Test
+    public void testGetAdultHumanKeys(){
+        Map<Integer, Human> humanMap = new HashMap<>();
+        Human h1 = new Human("ab", "cksl", "ndj", 40);
+        Human h2 = new Human("fdjkl", "dskl", "dsjkl", 20);
+        Human h3 = new Human("jdfk", "sss", "nnn", 200);
+        Human h4 = new Human("hhh", "ttt", "kkk", 15);
+        Human h5 = new Human("bb", "ww", "zz", 30);
+        humanMap.put(1, h1);
+        humanMap.put(5, h2);
+        humanMap.put(null, h3);
+        humanMap.put(3, null);
+        humanMap.put(12, h4);
+        humanMap.put(4, h5);
+        List<Integer> expected = new ArrayList<>();
+        expected.add(null);
+        expected.add(1);
+        expected.add(4);
+        expected.add(5);
+
+        assertEquals(expected, getAdultHumanKeys(humanMap));
+    }
+
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateHumanAgeNullMap(){
+        createHumanAgeMap(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateHumanAgeEmptyMap(){
+        Map<Integer, Human> map = new HashMap<>();
+        createHumanAgeMap(map);
+    }
+
+    @Test
+    public void testCreateHumanAgeMap(){
+        Map<Integer, Human> humanMap = new HashMap<>();
+        Human h1 = new Human("ab", "cksl", "ndj", 40);
+        Human h2 = new Human("fdjkl", "dskl", "dsjkl", 20);
+        Human h3 = new Human("jdfk", "sss", "nnn", 200);
+        Human h4 = new Human("hhh", "ttt", "kkk", 15);
+        Human h5 = new Human("bb", "ww", "zz", 30);
+        humanMap.put(1, h1);
+        humanMap.put(5, h2);
+        humanMap.put(null, h3);
+        humanMap.put(3, null);
+        humanMap.put(12, h4);
+        humanMap.put(4, h5);
+
+        Map<Integer, Integer> expected = new HashMap<>();
+        expected.put(1, h1.getAge());
+        expected.put(5, h2.getAge());
+        expected.put(null, h3.getAge());
+        expected.put(12, h4.getAge());
+        expected.put(4, h5.getAge());
+
+        assertEquals(expected, createHumanAgeMap(humanMap));
+
+    }
+
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateSameAgeNullSet(){
+        createSameAgeMap(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateSameAgeEmptySet(){
+        Set<Human> humanSet = new HashSet<>();
+        createSameAgeMap(humanSet);
+    }
+
+    @Test
+    public void testCreateSameAgeMap(){
+        Human h1 = new Human("aa", "bb", "cc", 20);
+        Human h2 = new Human("a", "b", "c", 20);
+        Human h3 = new Human("aaa", "bbb", "ccc", 20);
+        Human h4 = new Human("hhh", "ttt", "kkk", 15);
+        Human h5 = new Human("bb", "ww", "zz", 30);
+        Set<Human> humanSet = new HashSet<>();
+        humanSet.add(h1);
+        humanSet.add(h2);
+        humanSet.add(h3);
+        humanSet.add(h4);
+        humanSet.add(h5);
+
+        Map<Integer, List<Human>> expected = new HashMap<>();
+        List<Human> list1 = new ArrayList<>();
+        List<Human> list2 = new ArrayList<>();
+        List<Human> list3 = new ArrayList<>();
+        list1.add(h1);
+        list1.add(h2);
+        list1.add(h3);
+        list2.add(h4);
+        list3.add(h5);
+        expected.put(20, list1);
+        expected.put(15, list2);
+        expected.put(30, list3);
+
+        assertEquals(expected, createSameAgeMap(humanSet));
+
+
+    }
+
 }

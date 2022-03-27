@@ -158,4 +158,79 @@ public class CollectionsDemo {
         return humanSet;
     }
 
+    //    #8
+    public static List<Integer> getAdultHumanKeys(Map<Integer, Human> map) {
+        if (map == null) {
+            throw new IllegalArgumentException("map cannot be null");
+        }
+        if (map.isEmpty()) {
+            throw new IllegalArgumentException("map cannot be empty");
+        }
+
+        List<Integer> keys = new ArrayList<>();
+        for (Integer elem : map.keySet()) {
+            if (map.get(elem) != null && map.get(elem).getAge() >= 18) {
+                keys.add(elem);
+            }
+        }
+        return keys;
+    }
+
+    //    #9
+    public static Map<Integer, Integer> createHumanAgeMap(Map<Integer, Human> map) {
+        if (map == null) {
+            throw new IllegalArgumentException("map cannot be null");
+        }
+        if (map.isEmpty()) {
+            throw new IllegalArgumentException("map cannot be empty");
+        }
+
+        Map<Integer, Integer> humanAge = new HashMap<>();
+        for (Integer elem : map.keySet()) {
+            if (map.get(elem) != null) {
+                humanAge.put(elem, map.get(elem).getAge());
+            }
+        }
+        return humanAge;
+    }
+
+    //    #10
+//По множеству объектов типа Human постройте отображение, которое целому числу
+//(возраст человека) сопоставляет список всех людей данного возраста из входного
+//множества.
+    public static Map<Integer, List<Human>> createSameAgeMap(Set<Human> humanSet) {
+        if (humanSet == null) {
+            throw new IllegalArgumentException("map cannot be null");
+        }
+        if (humanSet.isEmpty()) {
+            throw new IllegalArgumentException("map cannot be empty");
+        }
+
+//        Set<Integer> ageSet = new HashSet<>();
+//        for (Human elem :
+//                humanSet) {
+//            if (elem != null) {
+//                ageSet.add(elem.getAge());
+//            }
+//        }
+
+        Map<Integer, List<Human>> map = new HashMap<>();
+//        List<Human> list = new ArrayList<>();
+//        List<Human> myList = new ArrayList<>();
+//            int age = 0;
+//        for (Integer age : ageSet) {
+            for (Human h : humanSet) {
+                if (!map.containsKey(h.getAge())) {
+                    map.put(h.getAge(), new ArrayList<Human>());
+                }
+                map.get(h.getAge()).add(h);
+            }
+
+//        }
+
+        return map;
+
+    }
+
+
 }
