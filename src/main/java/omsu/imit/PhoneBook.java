@@ -59,18 +59,24 @@ public class PhoneBook {
         if (phoneNum == null) throw new IllegalArgumentException("phoneNum can't be null");
         if (h1 == null) throw new IllegalArgumentException("Human can't be null");
 
-        if (!book.containsKey(h1)) throw new IllegalArgumentException("this map hasn't got this Human");
+//        if (!book.containsKey(h1)) throw new IllegalArgumentException("this map hasn't got this Human");
+        if (!book.containsKey(h1)){
+            List list = new ArrayList();
+            list.add(phoneNum);
+            book.put(h1, list);
+        }
+        else {
 
 //        if (book.get(h1).contains(phoneNum)) {
 //            throw new IllegalArgumentException("this Human has already got this phoneNum");
 //        }
 
 //        if (book.containsKey(h1)) {
-        List<String> myList = book.get(h1);
-        myList.add(phoneNum);
-        book.put(h1, myList);
+            List<String> myList = book.get(h1);
+            myList.add(phoneNum);
+            book.put(h1, myList);
 //        }
-
+        }
     }
 
 
@@ -132,5 +138,23 @@ public class PhoneBook {
 
     }
 
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PhoneBook)) return false;
+        PhoneBook phoneBook = (PhoneBook) o;
+        return Objects.equals(book, phoneBook.book);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(book);
+    }
+
+    @Override
+    public String toString() {
+        return "PhoneBook{" +
+                "book=" + book +
+                '}';
+    }
+}
